@@ -159,7 +159,7 @@ class SPIFlashSafeFile {
 
 
     //--------------------------------------------------------------------------
-    function read() {
+    function read(def = false) {
         
         /* General algorithm
         
@@ -168,7 +168,7 @@ class SPIFlashSafeFile {
         
         */
         local scan = _scan();
-        if (scan.highestId == SPIFLASHSAFEFILE_ID_INVALID) return false;
+        if (scan.highestId == SPIFLASHSAFEFILE_ID_INVALID) return def;
         
         // server.log(format("READ: Hunting for id %d", scan.highestId))
         foreach (space in _scan().spaces) {
@@ -201,7 +201,7 @@ class SPIFlashSafeFile {
         
         // No data was found
         server.error(className + ": No object found");
-        return false;
+        return def;
 
 
     }
